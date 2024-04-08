@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>2D Array Component | Pirate map</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(
+          6,
+          50px
+        ); /* Adjust based on your array size */
+            grid-template-rows: repeat(
+          6,
+          50px
+        ); /* Adjust based on your array size */
+            gap: 1px; /* Adjust based on your preference */
+        }
+
+        .text {
+            padding: 1.5rem 0 0.75rem;
+        }
+
+        .cell {
+            background-color: #faf0ca; /* Default cell color */
+            border: 1px solid #fff; /* Adjust border as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Define styles for different cell values */
+        .cell.v {
+            background-color: #a7c957; /* Example color for 'v' */
+        }
+
+        .cell.x {
+            background-color: #f95738; /* Example color for 'x' */
+        }
+
+        .cell.o {
+            background-color: #f4d35e; /* Example color for 'o' */
+        }
+    </style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+
+<div class="text">Map example</div>
+<div class="grid" id="map-example"></div>
+
+<script src="https://diyezz.github.io/main.js"></script>
+<script>
+    function moveForward(array, xCoordinate, yCoordinate) {
+        if (array[xCoordinate - 1][yCoordinate] === "o" || "f: (0,0)") {
+            array[xCoordinate - 1][yCoordinate] = "v"
+            console.log("Переміщено вперед")
+            return [xCoordinate - 1, yCoordinate]
+        } else {
+            return false
+        }
+    }
+
+    const turnLeft = function (array, xCoordinate, yCoordinate) {
+        if (array[xCoordinate][yCoordinate - 1] === "o" || "f: (0,0)") {
+            array[xCoordinate][yCoordinate - 1] = "v"
+            console.log("Повернуто ліворуч")
+            return [xCoordinate, yCoordinate - 1]
+        } else {
+            return false
+        }
+    };
+
+
+    const turnRight = (array, xCoordinate, yCoordinate) => {
+        if (array[xCoordinate][yCoordinate + 1] === "o" || "f: (0,0)") {
+            array[xCoordinate][yCoordinate + 1] = "v"
+            console.log("Повернуто праворуч")
+            return [xCoordinate, yCoordinate + 1]
+        } else {
+            return false
+        }
+    };
+
+    PIRATE_GAME.renderGrid("map-example");
+    const initMap = PIRATE_GAME.pirateMap;
+    const gameStart = PIRATE_GAME.start(initMap);
+    const step1 = turnLeft(initMap, gameStart[0], gameStart[1])
+    const step2 = turnLeft(initMap, step1[0], step1[1])
+    const step3 = turnLeft(initMap, step2[0], step2[1])
+    const step4 = moveForward(initMap, step3[0], step3[1])
+    const step5 = moveForward(initMap, step4[0], step4[1])
+    const step6 = turnRight(initMap, step5[0], step5[1])
+    const step7 = moveForward(initMap, step6[0], step6[1])
+    const step8 = moveForward(initMap, step7[0], step7[1])
+    const step9 = turnLeft(initMap, step8[0], step8[1])
+    const step10 = moveForward(initMap, step9[0], step9[1])
+    const step11 = turnLeft(initMap, step10[0], step10[1])
+    const step12 = turnLeft(initMap, step11[0], step11[1])
+    console.log(step12)
+
+    PIRATE_GAME.renderGrid("grid");
+</script>
+</body>
+</html>
